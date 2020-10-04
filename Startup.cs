@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace emailsender
+namespace sendemail
 {
     public class Startup
     {
@@ -39,9 +39,8 @@ namespace emailsender
             //app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
-
 //            app.UseForwardedHeaders(new ForwardedHeadersOptions
  //           {
   //              ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto

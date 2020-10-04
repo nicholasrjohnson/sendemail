@@ -1,30 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.Extensions.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Net;
-using System.Net.Mail;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Builder;
+using System.Net;
+using System.Net.Mail;
+using Microsoft.Extensions.Configuration;
 
-namespace emailsender.Controllers
+
+namespace sendemail.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class SendEmail : ControllerBase
+    public class SendEmailController : ControllerBase
     {
-        private readonly ILogger<SendEmail> _logger;
+        private readonly ILogger<SendEmailController> _logger;
         private readonly IConfiguration _configuration;
-        public SendEmail(ILogger<SendEmail> logger, IConfiguration configuration) 
+        public SendEmailController(ILogger<SendEmailController> logger, IConfiguration configuration) 
         {  
             _configuration = configuration;
             _logger = logger;
         }
 
         [HttpPost]
-        public void Post( Email email )
+        [Route("SendEmail")]
+        public void SendEmail( [FromBody] Email email )
         {
            int port;
            int.TryParse(_configuration["Smtp:Port"], out port);
@@ -35,7 +36,8 @@ namespace emailsender.Controllers
                 EnableSsl = true,
             };
     
-            smtpClient.Send( email.sender, "njohnson@nicholasrjohnson.com", "Message from Site", email.body ); 
+            smtpClient.Send( email.emailAddress, "njohnson@nicholasrjohnson.com", "Message from Site", email.body );
+            //return CreatedAtAction( "Email", email );
         }
     }
 }
