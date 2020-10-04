@@ -24,7 +24,7 @@ namespace emailsender.Controllers
         }
 
         [HttpPost]
-        public void Send( string email, string body )
+        public void Post( Email email )
         {
            int port;
            int.TryParse(_configuration["Smtp:Port"], out port);
@@ -35,7 +35,7 @@ namespace emailsender.Controllers
                 EnableSsl = true,
             };
     
-            smtpClient.Send( email, "njohnson@nicholasrjohnson.com", "Message from Site", body ); 
+            smtpClient.Send( email.sender, "njohnson@nicholasrjohnson.com", "Message from Site", email.body ); 
         }
     }
 }
