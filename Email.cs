@@ -1,10 +1,13 @@
 using System;
+using System.Text.Json.Serialization;
 
-namespace emailsender
+namespace sendemail
 {
-    public class Email 
+    public class Email
     {
-        public string sender { get; set; }
+        //[JsonPropertyName("emailAddress")]
+        public string emailAddress { get; set; }
+        //[JsonPropertyName("body")]
         public string body { get; set; }
     }
 }
